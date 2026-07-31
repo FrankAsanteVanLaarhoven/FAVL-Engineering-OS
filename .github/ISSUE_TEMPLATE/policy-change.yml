@@ -1,0 +1,23 @@
+name: Policy change
+about: Propose a controlled change to FAVL Engineering OS
+body:
+  - type: textarea
+    attributes:
+      label: Problem and evidence
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Proposed change
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Impact and migration
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Risks and rollback
+    validations:
+      required: true

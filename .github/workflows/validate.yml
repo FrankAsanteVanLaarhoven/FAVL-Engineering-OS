@@ -1,0 +1,20 @@
+name: Validate Engineering OS
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate policy repository
+        run: ./scripts/validate-os.sh
+      - name: Detect obvious secrets
+        run: |
+          if grep -RInE --exclude-dir=.git '(sk-ant-|sk-proj-|AKIA[0-9A-Z]{16}|-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----)' .; then
+            echo 'Potential secret detected.' >&2
+            exit 1
+          fi

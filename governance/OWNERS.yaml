@@ -1,0 +1,13 @@
+version: 1
+owner:
+  name: Frank Asante Van Laarhoven
+  github: FrankAsanteVanLaarhoven
+protected_paths:
+  - CLAUDE.md
+  - constitution/**
+  - standards/**
+  - governance/**
+  - .claude/hooks/**
+required_review:
+  constitutional_change: owner
+  security_policy_change: owner
