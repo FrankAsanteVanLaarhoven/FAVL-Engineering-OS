@@ -59,4 +59,26 @@ For significant work retain:
 - failures, reversals, blocked runs, mitigations, and unresolved limitations;
 - authorship and provenance evidence where applicable.
 
+## Ownership and attribution
+This section is binding in every workspace. It restates Article VII of `constitution/CONSTITUTION.md`, and it is repeated here because this file is what gets installed as user-wide and managed policy.
+
+All repositories, commits, documents, metadata, release notes, artefacts and public project files show one identity:
+
+    Frank Asante Van Laarhoven <frankleroyvan@gmail.com>
+
+Never add or preserve, without Frank's explicit approval: third-party contributor names, credit lines, co-author trailers, tool or vendor branding, automation or model identities, origination notes, "produced-with" notes, or workflow identity branding.
+
+Before committing or pushing, check Git-tracked and staged project files only. Build logs, system logs, robotics logs and temporary outputs are not attribution evidence.
+
+## Context budget
+Work in compact milestones rather than one indefinitely growing session.
+
+Before a substantial task: read only the files the task needs; summarise repository state in at most twelve bullets; state the branch, goal, protected files, artefact rules, validation commands and commit boundary.
+
+During work: prefer targeted reads over broad scans; summarise only the failing lines and the command that produced them rather than pasting long logs; write a compact checkpoint after each meaningful commit or experiment; compact the session when context grows large, and start from the latest checkpoint when switching milestone.
+
+Before finishing, report branch, commit hash, files changed, tests run, key result, artefact safety and the next decision. Omit long command transcripts unless they are needed to debug.
+
+Generated artefacts, outputs, checkpoints, dense indexes, logs and model weights are not loaded into context or committed unless explicitly approved.
+
 Read topic-specific requirements in `.claude/rules/` and authoritative standards in `standards/`.

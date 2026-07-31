@@ -2,17 +2,34 @@
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
     "deny": [
+      "Edit(CLAUDE.md)",
+      "Edit(VERSION)",
+      "Edit(.attribution-allow)",
+      "Edit(constitution/**)",
+      "Edit(standards/**)",
+      "Edit(governance/**)",
+      "Edit(.claude/**)",
+      "Edit(.github/CODEOWNERS)",
+      "Edit(.github/workflows/**)",
+      "Edit(scripts/validate-os.sh)",
       "Read(./.env)",
       "Read(./.env.*)",
+      "Read(**/*.pem)",
+      "Read(**/id_rsa)",
+      "Read(**/id_ed25519)",
       "Bash(rm -rf /:*)",
       "Bash(git push --force:*)",
       "Bash(git reset --hard:*)"
+    ],
+    "ask": [
+      "Bash(git push:*)",
+      "Bash(sudo:*)"
     ]
   },
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "Edit|Write",
+        "matcher": "Edit|Write|MultiEdit|NotebookEdit|Bash",
         "hooks": [
           {
             "type": "command",
@@ -23,7 +40,7 @@
     ],
     "SessionStart": [
       {
-        "matcher": "startup|compact",
+        "matcher": "startup|resume|clear|compact",
         "hooks": [
           {
             "type": "command",

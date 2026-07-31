@@ -1,0 +1,25 @@
+# Canonical protected policy paths -- the single source of truth.
+#
+# Three mechanisms consume this file, and scripts/validate-os.sh fails if they
+# ever disagree with it:
+#   1. .claude/hooks/protect-governance.sh  -- denies agent writes at runtime
+#   2. governance/OWNERS.yaml               -- declares owner review scope
+#   3. .github/CODEOWNERS                   -- enforces human review on GitHub
+#
+# Format: one repository-relative path per line. A trailing "/" means the
+# entry covers that directory and everything beneath it. "#" starts a comment.
+#
+# Before this file existed the three lists were written independently and had
+# already drifted apart, so a path could look protected in one place while
+# being freely writable in the others.
+
+CLAUDE.md
+VERSION
+.attribution-allow
+constitution/
+standards/
+governance/
+.claude/
+.github/CODEOWNERS
+.github/workflows/
+scripts/validate-os.sh

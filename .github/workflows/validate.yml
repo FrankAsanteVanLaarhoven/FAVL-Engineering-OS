@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # One entry point on purpose. The previous revision ran a second,
+      # inline secret grep whose pattern list matched the workflow file that
+      # contained it, so the job failed on every commit regardless of content.
+      # Patterns now live in .github/secret-patterns.txt, the scanner proves
+      # itself against canaries before reporting a pass, and a local run and a
+      # CI run execute identical code.
       - name: Validate policy repository
         run: ./scripts/validate-os.sh
-      - name: Detect obvious secrets
-        run: |
-          if grep -RInE --exclude-dir=.git '(sk-ant-|sk-proj-|AKIA[0-9A-Z]{16}|-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----)' .; then
-            echo 'Potential secret detected.' >&2
-            exit 1
-          fi

@@ -1,13 +1,22 @@
+# protected_paths is derived from governance/PROTECTED_PATHS.txt.
+# scripts/validate-os.sh fails if the two disagree.
 version: 1
 owner:
   name: Frank Asante Van Laarhoven
+  email: frankleroyvan@gmail.com
   github: FrankAsanteVanLaarhoven
 protected_paths:
   - CLAUDE.md
+  - VERSION
+  - .attribution-allow
   - constitution/**
   - standards/**
   - governance/**
-  - .claude/hooks/**
+  - .claude/**
+  - .github/CODEOWNERS
+  - .github/workflows/**
+  - scripts/validate-os.sh
 required_review:
   constitutional_change: owner
   security_policy_change: owner
+  enforcement_change: owner

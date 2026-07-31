@@ -1,0 +1,23 @@
+# Attribution patterns rejected anywhere in this repository.
+#
+# Each entry is a regular expression, deliberately written so the file does not
+# contain the literal phrase it detects. A bracketed character class such as
+# [-] still matches a plain hyphen, so "Co-authored[-]by:" catches a real
+# trailer while this file itself stays clean under the owner's global commit
+# guard, which scans every staged file including this one.
+#
+# scripts/validate-os.sh proves each pattern still fires against a constructed
+# canary before it reports a pass, so blunting one of these is a validation
+# failure rather than a silent gap.
+
+Co-authored[-]by:
+co-authored[-]by:
+Generated[-]by:
+generated[-]by:
+AI[-]generated
+ai[-]generated
+AI[-]assisted
+ai[-]assisted
+[Cc]reated with AI
+[Pp]owered by AI
+\b[Bb]ot account\b

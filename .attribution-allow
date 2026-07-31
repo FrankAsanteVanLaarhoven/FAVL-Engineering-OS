@@ -1,0 +1,38 @@
+# Functional-identifier allowlist for the global pre-commit attribution guard.
+#
+# Mechanism approved 2026-07-03. A path listed here may contain external
+# vendor/tool NAME strings when they appear as functional identifiers: real
+# directory paths, settings filenames, hook event names, CLI invocations.
+#
+# Why this repository needs it:
+#   FAVL Engineering OS is a policy layer for an external agent CLI. Its whole
+#   purpose is to place files at that tool's real configuration paths
+#   (~/.claude/, /etc/claude-code/, .claude/settings.json) and to describe the
+#   hook events it dispatches. Those literal strings cannot be paraphrased
+#   without making every install script and policy document wrong.
+#
+# What this does NOT relax. On every path listed here the guard still blocks:
+#   * co-author trailers
+#   * origination and "produced-with" notes
+#   * attribution, contributor, credit, maintainer and acknowledgement lines
+#     naming anyone other than Frank Asante Van Laarhoven
+#
+# So Article VII of constitution/CONSTITUTION.md stays enforced by the same
+# hook that would otherwise reject these files.
+#
+# Scope is per-path, not repository-wide. VERSION, LICENSE, NOTICE,
+# .env.example and the src/ and tests/ placeholders are deliberately absent
+# and are still scanned for vendor names.
+
+.attribution-allow
+.gitignore
+CLAUDE.md
+README.md
+constitution/*
+standards/*
+governance/*
+docs/*
+scripts/*
+templates/*
+.claude/*
+.github/*

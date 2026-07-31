@@ -1,5 +1,16 @@
+# Derived from governance/PROTECTED_PATHS.txt.
+# scripts/validate-os.sh fails if this file and that one disagree.
+#
+# CODEOWNERS only binds once branch protection requires owner review on the
+# protected branch. Without that setting this file is advisory.
+
 /CLAUDE.md @FrankAsanteVanLaarhoven
+/VERSION @FrankAsanteVanLaarhoven
+/.attribution-allow @FrankAsanteVanLaarhoven
 /constitution/ @FrankAsanteVanLaarhoven
 /standards/ @FrankAsanteVanLaarhoven
 /governance/ @FrankAsanteVanLaarhoven
 /.claude/ @FrankAsanteVanLaarhoven
+/.github/CODEOWNERS @FrankAsanteVanLaarhoven
+/.github/workflows/ @FrankAsanteVanLaarhoven
+/scripts/validate-os.sh @FrankAsanteVanLaarhoven

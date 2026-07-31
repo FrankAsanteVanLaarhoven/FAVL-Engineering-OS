@@ -1,6 +1,6 @@
 # FAVL Engineering OS
 
-Canonical, version-controlled engineering governance for AI-assisted software delivery across FAVL projects.
+Canonical, version-controlled engineering governance for agent-supported software delivery across FAVL projects.
 
 This repository separates:
 
@@ -43,6 +43,36 @@ sudo ./scripts/install-managed-policy.sh
 
 ```bash
 ./scripts/validate-os.sh
+```
+
+## What is actually enforced
+
+Controls are labelled by what they can do, not by what they are named. A check
+that reports but cannot block is not a gate.
+
+| Control | Kind | Blocks what |
+| --- | --- | --- |
+| `.claude/hooks/protect-governance.sh` | technical, local | agent writes to `governance/PROTECTED_PATHS.txt` entries, via `Edit`, `Write`, `MultiEdit`, `NotebookEdit` or `Bash`. Fails closed. |
+| `.claude/settings.json` deny rules | technical, local | the same paths again, one layer above the hook |
+| `scripts/validate-os.sh` | technical, in CI | required files, shell syntax, executable bits, list drift, policy checksums, line endings, attribution lines, secret patterns |
+| `.github/CODEOWNERS` + branch protection | technical, server-side | merges to protected paths without owner review |
+| `CLAUDE.md`, `constitution/`, `standards/` | behavioural | nothing by itself; it informs the agent |
+
+The local hook is defence in depth, not a boundary. Anyone with shell access can
+edit these files directly, and the `Bash` scan is a blocklist that cannot be
+complete. The enforcing boundary is the server side: CODEOWNERS plus branch
+protection plus a required status check. Configure those on GitHub or the
+guarantee is only as strong as the agent's cooperation.
+
+`governance/PROTECTED_PATHS.txt` is the single source of truth for the protected
+set. The hook, `OWNERS.yaml` and `CODEOWNERS` all derive from it, and
+`validate-os.sh` fails if they drift apart.
+
+`governance/POLICY_CHECKSUMS.sha256` pins the content of every protected file.
+After an approved policy change, regenerate it with:
+
+```bash
+./scripts/validate-os.sh --update-checksums
 ```
 
 ## Non-goals
