@@ -90,6 +90,8 @@ REQUIRED = [
     ".github/secret-patterns.txt", ".github/attribution-patterns.txt",
     "docs/adr/0001-policy-enforcement-model.md",
     "templates/project/PROJECT.md", "templates/project/README.md",
+    # Without this the gate in a generated project fails closed on every write.
+    "templates/project/governance/PROTECTED_PATHS.txt",
 ]
 absent = [f for f in REQUIRED if not os.path.exists(os.path.join(ROOT, f))]
 missing = [
@@ -178,6 +180,25 @@ for expected, label, payload in CASES:
     proc = subprocess.run([HOOK], input=payload, capture_output=True, text=True, env=env)
     record("gate %s -> %d" % (label, expected), proc.returncode == expected,
            "got %d" % proc.returncode)
+
+# The same gate ships into every generated project, where it reads that
+# project's own protected-path file. If the template stops carrying one, the
+# gate fails closed there and no write in a new project can ever succeed.
+template_env = dict(os.environ, CLAUDE_PROJECT_DIR=os.path.join(ROOT, "templates/project"))
+proc = subprocess.run(
+    [HOOK],
+    input='{"tool_name":"Write","tool_input":{"file_path":"src/app.py"}}',
+    capture_output=True, text=True, env=template_env,
+)
+record("gate allows ordinary writes in a generated project", proc.returncode == 0,
+       "got %d: %s" % (proc.returncode, proc.stderr.strip().splitlines()[:1]))
+proc = subprocess.run(
+    [HOOK],
+    input='{"tool_name":"Write","tool_input":{"file_path":"CLAUDE.md"}}',
+    capture_output=True, text=True, env=template_env,
+)
+record("gate protects policy in a generated project", proc.returncode == 2,
+       "got %d" % proc.returncode)
 
 # ------------------------------------------------------------------- content
 section("Content scans")

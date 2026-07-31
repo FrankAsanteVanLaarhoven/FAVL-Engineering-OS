@@ -1,0 +1,14 @@
+# Protected policy paths for a project generated from FAVL Engineering OS.
+#
+# .claude/hooks/protect-governance.sh reads this file at runtime and denies
+# agent writes to anything it covers. The gate fails closed, so this file must
+# exist in every generated project: without it the gate cannot know what is
+# protected and refuses every write.
+#
+# Format: one repository-relative path per line, a trailing "/" meaning the
+# directory and everything beneath it. Add project-specific entries here --
+# infrastructure manifests, licence files, migration history, release scripts.
+
+CLAUDE.md
+.claude/
+governance/
